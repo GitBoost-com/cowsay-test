@@ -26,81 +26,81 @@ chars(oo)
 U `;
 
 test('original cow file format', (t) => {
-  t.plan(1);
+	t.plan(1);
 
-  const cow = replacer(cowFormat, {
-    thoughts: '||',
-    eyes: 'oo',
-    tongue: 'U ',
-  });
-  t.equal(cow, expected);
+	const cow = replacer(cowFormat, {
+		thoughts: '||',
+		eyes: 'oo',
+		tongue: 'U ',
+	});
+	t.equal(cow, expected);
 });
 
 test('plain text file', (t) => {
-  t.plan(1);
+	t.plan(1);
 
-  const cow = replacer(plainText, {
-    thoughts: '||',
-    eyes: 'oo',
-    tongue: 'U ',
-  });
-  t.equal(cow, expected);
+	const cow = replacer(plainText, {
+		thoughts: '||',
+		eyes: 'oo',
+		tongue: 'U ',
+	});
+	t.equal(cow, expected);
 });
 
 test('individual $eye replacements use left and right eye chars', (t) => {
-  t.plan(1);
+	t.plan(1);
 
-  const template = 'L:$eye R:$eye';
-  const result = replacer(template, {
-    thoughts: '\\',
-    eyes: 'LR',
-    tongue: '  ',
-  });
-  t.equal(result, 'L:L R:R');
+	const template = 'L:$eye R:$eye';
+	const result = replacer(template, {
+		thoughts: '\\',
+		eyes: 'LR',
+		tongue: '  ',
+	});
+	t.equal(result, 'L:L R:R');
 });
 
 test('dollar signs in eyes are handled correctly', (t) => {
-  t.plan(1);
+	t.plan(1);
 
-  const template = 'eyes:$eyes';
-  const result = replacer(template, {
-    thoughts: '\\',
-    eyes: '$$',
-    tongue: '  ',
-  });
-  t.equal(result, 'eyes:$$');
+	const template = 'eyes:$eyes';
+	const result = replacer(template, {
+		thoughts: '\\',
+		eyes: '$$',
+		tongue: '  ',
+	});
+	t.equal(result, 'eyes:$$');
 });
 
 test('${eyes} and ${tongue} bracket syntax works', (t) => {
-  t.plan(1);
+	t.plan(1);
 
-  const template = 'E:${eyes} T:${tongue}';
-  const result = replacer(template, {
-    thoughts: '\\',
-    eyes: 'oo',
-    tongue: 'U ',
-  });
-  t.equal(result, 'E:oo T:U ');
+	const template = 'E:${eyes} T:${tongue}';
+	const result = replacer(template, {
+		thoughts: '\\',
+		eyes: 'oo',
+		tongue: 'U ',
+	});
+	t.equal(result, 'E:oo T:U ');
 });
 
 test('undefined eyes and tongue default to empty string', (t) => {
-  t.plan(1);
+	t.plan(1);
 
-  const template = 'E:$eyes T:$tongue';
-  const result = replacer(template, {
-    thoughts: '\\',
-  });
-  t.equal(result, 'E: T:');
+	const template = 'E:$eyes T:$tongue';
+	const result = replacer(template, {
+		thoughts: '\\',
+	});
+	t.equal(result, 'E: T:');
 });
 
 test('extractTheCow handles backslash and at-sign escapes', (t) => {
-  t.plan(1);
+	t.plan(1);
 
-  const cowFile = '$the_cow = <<EOC;\n\\\\escaped \\@at \\$dollar\nEOC\n';
-  const result = replacer(cowFile, {
-    thoughts: '\\',
-    eyes: 'oo',
-    tongue: '  ',
-  });
-  t.equal(result, '\\escaped @at $dollar');
+	const cowFile = '$the_cow = <<EOC;\n\\\\escaped \\@at \\$dollar\nEOC\n';
+	const result = replacer(cowFile, {
+		thoughts: '\\',
+		eyes: 'oo',
+		tongue: '  ',
+	});
+	t.equal(result, '\\escaped @at $dollar');
 });
