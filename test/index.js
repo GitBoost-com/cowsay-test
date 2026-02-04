@@ -32,10 +32,11 @@ test('say with a named cow file', (t) => {
 });
 
 test('say with a mode', (t) => {
-	t.plan(1);
+	t.plan(2);
 
 	const result = cowsay.say({ text: 'Greedy', g: true, _: [] });
-	t.ok(result.includes('$$'));
+	t.ok(result.includes('$$'), 'greedy mode eyes present');
+	t.ok(!result.includes('undefined'), 'no undefined in output');
 });
 
 test('say with nowrap option', (t) => {
@@ -97,5 +98,29 @@ test('listSync returns same names as list', (t) => {
 	const syncNames = cowsay.listSync();
 	cowsay.list().then((asyncNames) => {
 		t.deepEqual(syncNames, asyncNames);
+	});
+});
+
+test('all modes render thoughts correctly in say', (t) => {
+	const modeFlags = ['b', 'd', 'g', 'p', 's', 't', 'w', 'y'];
+	t.plan(modeFlags.length);
+
+	modeFlags.forEach((flag) => {
+		const opts = { text: 'Test', _: [] };
+		opts[flag] = true;
+		const result = cowsay.say(opts);
+		t.ok(!result.includes('undefined'), 'mode ' + flag + ' has no undefined');
+	});
+});
+
+test('all modes render thoughts correctly in think', (t) => {
+	const modeFlags = ['b', 'd', 'g', 'p', 's', 't', 'w', 'y'];
+	t.plan(modeFlags.length);
+
+	modeFlags.forEach((flag) => {
+		const opts = { text: 'Test', _: [] };
+		opts[flag] = true;
+		const result = cowsay.think(opts);
+		t.ok(!result.includes('undefined'), 'mode ' + flag + ' has no undefined');
 	});
 });

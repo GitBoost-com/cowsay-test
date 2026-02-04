@@ -87,3 +87,11 @@ test('paranoia mode', (t) => {
   t.equal(face.eyes, '@@');
   t.equal(face.tongue, '  ');
 });
+
+test('mode faces are mutable (callers can add thoughts)', (t) => {
+  t.plan(1);
+
+  const face = getFace({ b: true });
+  face.thoughts = '\\';
+  t.equal(face.thoughts, '\\');
+});
