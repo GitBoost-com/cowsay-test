@@ -79,7 +79,7 @@ export function list(callback?: callback_type): Promise<string[]>;
  * ## Modes :
  * Modes are just ready-to-use faces, here's their list:
  * - #### `b` : borg
- * - #### `d` : dead      
+ * - #### `d` : dead
  * - #### `g` : greedy
  * - #### `p` : paranoia
  * - #### `s` : stoned
@@ -130,7 +130,7 @@ export function say(options: IOptions): string;
  * ## Modes :
  * Modes are just ready-to-use faces, here's their list:
  * - #### `b` : borg
- * - #### `d` : dead      
+ * - #### `d` : dead
  * - #### `g` : greedy
  * - #### `p` : paranoia
  * - #### `s` : stoned

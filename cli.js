@@ -77,7 +77,7 @@ function say() {
 
 function listCows() {
   require('./index').list((err, list) => {
-    if (err) throw new Error(err);
+    if (err) throw err;
     console.log(list.join('  '));
   });
 }

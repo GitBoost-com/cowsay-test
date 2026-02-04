@@ -19,7 +19,7 @@ const faces = require("./lib/faces");
  * ## Modes :
  * Modes are just ready-to-use faces, here's their list:
  * - #### `b` : borg
- * - #### `d` : dead      
+ * - #### `d` : dead
  * - #### `g` : greedy
  * - #### `p` : paranoia
  * - #### `s` : stoned
@@ -74,7 +74,7 @@ exports.say = function (options) {
  * ## Modes :
  * Modes are just ready-to-use faces, here's their list:
  * - #### `b` : borg
- * - #### `d` : dead      
+ * - #### `d` : dead
  * - #### `g` : greedy
  * - #### `p` : paranoia
  * - #### `s` : stoned
