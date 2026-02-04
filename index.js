@@ -146,7 +146,8 @@ function doIt (options, sayAloud) {
 	const face = faces(options);
 	face.thoughts = sayAloud ? "\\" : "o";
 
-	const action = sayAloud ? "say" : "think";
 	const text = options.text || (options._ ? options._.join(" ") : "");
-	return balloon[action](text, options.n ? null : options.W) + "\n" + cow(face);
+	const wrap = options.n ? null : options.W;
+	const balloonText = sayAloud ? balloon.say(text, wrap) : balloon.think(text, wrap);
+	return balloonText + "\n" + cow(face);
 }
