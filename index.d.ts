@@ -39,6 +39,7 @@ export interface IOptions {
     t?: boolean, // tired
     w?: boolean, // wired
     y?: boolean, // youthful
+    _?: string[], // remaining arguments (used internally by CLI)
 }
 
 type callback_type = (error: NodeJS.ErrnoException, cow_names: string[]) => void;

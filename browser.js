@@ -202,7 +202,7 @@ function convertToCliOptions(browserOptions) {
     n: browserOptions.wrap,
     W: browserOptions.wrapLength || 40,
     text: browserOptions.text || '',
-    _: browserOptions.text || [],
+    _: [],
     f: browserOptions.cow,
   };
   if (browserOptions.mode) {

@@ -46,3 +46,22 @@ test('cow names do not include .cow extension', (t) => {
   const hasExtension = names.some((name) => name.endsWith('.cow'));
   t.notOk(hasExtension);
 });
+
+test('get accepts an absolute file path', (t) => {
+  t.plan(1);
+
+  const path = require('path');
+  const cowPath = path.join(__dirname, '..', 'cows', 'tux.cow');
+  const render = cows.get(cowPath);
+  const result = render({ eyes: 'oo', tongue: '  ', thoughts: '\\' });
+  t.ok(typeof result === 'string');
+});
+
+test('get returns different renders for different cows', (t) => {
+  t.plan(1);
+
+  const face = { eyes: 'oo', tongue: '  ', thoughts: '\\' };
+  const defaultCow = cows.get('default')(face);
+  const tuxCow = cows.get('tux')(face);
+  t.notEqual(defaultCow, tuxCow);
+});

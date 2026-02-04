@@ -62,3 +62,40 @@ test('list also works with callback', (t) => {
 		t.ok(names.includes('default'));
 	});
 });
+
+test('say works without _ property (programmatic API)', (t) => {
+	t.plan(1);
+
+	const result = cowsay.say({ text: 'Hello' });
+	t.ok(result.includes('Hello'));
+});
+
+test('say falls back to empty string when no text or _ provided', (t) => {
+	t.plan(1);
+
+	const result = cowsay.say({ _: [] });
+	t.equal(typeof result, 'string');
+});
+
+test('think uses "o" for thought bubble', (t) => {
+	t.plan(1);
+
+	const result = cowsay.think({ text: 'Thinking', _: [] });
+	t.ok(result.includes('o'));
+});
+
+test('say uses backslash for speech bubble', (t) => {
+	t.plan(1);
+
+	const result = cowsay.say({ text: 'Saying', _: [] });
+	t.ok(result.includes('\\'));
+});
+
+test('listSync returns same names as list', (t) => {
+	t.plan(1);
+
+	const syncNames = cowsay.listSync();
+	cowsay.list().then((asyncNames) => {
+		t.deepEqual(syncNames, asyncNames);
+	});
+});
