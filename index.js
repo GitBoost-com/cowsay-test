@@ -53,7 +53,7 @@ const faces = require("./lib/faces");
  * 
  * @returns {string} compiled cow
  */
-exports.say = function (options) {
+exports.say = function say (options) {
 	return doIt(options, true);
 };
 
@@ -108,7 +108,7 @@ exports.say = function (options) {
  * 
  * @returns {string} compiled cow
  */
-exports.think = function (options) {
+exports.think = function think (options) {
 	return doIt(options, false);
 };
 
