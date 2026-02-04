@@ -27,8 +27,11 @@ export interface IOptions {
     // face
     e?: string, // eyes
     T?: string, // tongue
+    // wrapping
+    n?: boolean, // disable word-wrap
+    W?: number, // wrap column (default 40)
     // modes
-    b?: boolean, // borg 
+    b?: boolean, // borg
     d?: boolean, // dead
     g?: boolean, // greedy
     p?: boolean, // paranoia
@@ -57,7 +60,7 @@ type callback_type = (error: NodeJS.ErrnoException, cow_names: string[]) => void
  * cowsay.list(get_cows);
  * ```
  */
-export function list(callback: callback_type): Promise<string[]>;
+export function list(callback?: callback_type): Promise<string[]>;
 
 /**
  * @param options
@@ -132,8 +135,8 @@ export function say(options: IOptions): string;
  * - #### `p` : paranoia
  * - #### `s` : stoned
  * - #### `t` : tired
- * - #### `w` : youthful
- * - #### `y` : wired
+ * - #### `w` : wired
+ * - #### `y` : youthful
  * 
  * @example
  * ```
