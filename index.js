@@ -130,6 +130,7 @@ exports.think = function think (options) {
  * @returns {Promise} promise
  */
 exports.list = cows.list;
+exports.listSync = cows.listSync;
 
 function doIt (options, sayAloud) {
 	let cowFile;

@@ -20,7 +20,7 @@
  * @property y : youthful
  */
 export interface IOptions {
-    text: string,
+    text?: string,
     // cow
     f?: string, // cow name
     r?: boolean, // random mode
@@ -63,19 +63,24 @@ type callback_type = (error: NodeJS.ErrnoException, cow_names: string[]) => void
 export function list(callback?: callback_type): Promise<string[]>;
 
 /**
+ * @returns a list of cow names synchronously.
+ */
+export function listSync(): string[];
+
+/**
  * @param options
  * ## Face :
  * Either choose a mode (set the value as true) **_or_**
  * set your own defined eyes and tongue to `e` and `T`.
  * - ### `e` : eyes
  * - ### `T` : tongue
- * 
+ *
  * ## Cow :
  * Either specify a cow name (e.g. "fox") **_or_**
  * set the value of `r` to true which selects a random cow.
  * - ### `r` : random selection
  * - ### `f` : cow name - from `cows` folder
- * 
+ *
  * ## Modes :
  * Modes are just ready-to-use faces, here's their list:
  * - #### `b` : borg
@@ -86,7 +91,7 @@ export function list(callback?: callback_type): Promise<string[]>;
  * - #### `t` : tired
  * - #### `w` : wired
  * - #### `y` : youthful
- * 
+ *
  * @example
  * ```
  * // custom cow and face
@@ -96,14 +101,14 @@ export function list(callback?: callback_type): Promise<string[]>;
  *     T: 'U ', // tongue
  *     f: 'USA' // name of the cow from `cows` folder
  * })
- * 
+ *
  * // using a random cow
  * cowsay.say({
  *     text: 'Hello world!',
  *     e: 'xx', // eyes
  *     r: true, // random mode - use a random cow.
  * })
- * 
+ *
  * // using a mode
  * cowsay.say({
  *     text: 'Hello world!',
