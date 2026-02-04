@@ -82,3 +82,25 @@ test('${eyes} and ${tongue} bracket syntax works', (t) => {
   });
   t.equal(result, 'E:oo T:U ');
 });
+
+test('undefined eyes and tongue default to empty string', (t) => {
+  t.plan(1);
+
+  const template = 'E:$eyes T:$tongue';
+  const result = replacer(template, {
+    thoughts: '\\',
+  });
+  t.equal(result, 'E: T:');
+});
+
+test('extractTheCow handles backslash and at-sign escapes', (t) => {
+  t.plan(1);
+
+  const cowFile = '$the_cow = <<EOC;\n\\\\escaped \\@at \\$dollar\nEOC\n';
+  const result = replacer(cowFile, {
+    thoughts: '\\',
+    eyes: 'oo',
+    tongue: '  ',
+  });
+  t.equal(result, '\\escaped @at $dollar');
+});

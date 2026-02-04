@@ -11,11 +11,12 @@ test('get returns a function for the default cow', (t) => {
   t.ok(result.includes('\\'));
 });
 
-test('get caches cow files', (t) => {
-  t.plan(1);
+test('get caches render functions by reference', (t) => {
+  t.plan(2);
 
   const render1 = cows.get('default');
   const render2 = cows.get('default');
+  t.equal(render1, render2, 'same function reference returned');
   const face = { eyes: 'oo', tongue: '  ', thoughts: '\\' };
   t.equal(render1(face), render2(face));
 });
