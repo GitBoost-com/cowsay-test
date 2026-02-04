@@ -49,7 +49,7 @@ type callback_type = (error: NodeJS.ErrnoException | null, cow_names: string[]) 
  * @returns a list of cow names from the cows folder without the .cow extension.
  * @example
  * ```
- * function get_cows(error: NodeJS.ErrnoException, cow_names: Array<string>): void {
+ * function get_cows(error: NodeJS.ErrnoException | null, cow_names: Array<string>): void {
  *    if (error) {
  *        console.log(`Error getting cow names: ${error.message}`);
  *    }
