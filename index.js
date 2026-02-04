@@ -1,6 +1,6 @@
-var balloon = require("./lib/balloon");
-var cows = require("./lib/cows");
-var faces = require("./lib/faces");
+const balloon = require("./lib/balloon");
+const cows = require("./lib/cows");
+const faces = require("./lib/faces");
 
 /**
  * @param options
@@ -132,19 +132,19 @@ exports.think = function (options) {
 exports.list = cows.list;
 
 function doIt (options, sayAloud) {
-	var cowFile;
+	let cowFile;
 
 	if (options.r) {
-		var cowsList = cows.listSync();
+		const cowsList = cows.listSync();
 		cowFile = cowsList[Math.floor(Math.random() * cowsList.length)];
 	} else {
 		cowFile = options.f || "default";
 	}
 
-	var cow = cows.get(cowFile);
-	var face = faces(options);
+	const cow = cows.get(cowFile);
+	const face = faces(options);
 	face.thoughts = sayAloud ? "\\" : "o";
 
-	var action = sayAloud ? "say" : "think";
+	const action = sayAloud ? "say" : "think";
 	return balloon[action](options.text || options._.join(" "), options.n ? null : options.W) + "\n" + cow(face);
 }
