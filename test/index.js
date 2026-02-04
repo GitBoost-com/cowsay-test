@@ -101,6 +101,42 @@ test('listSync returns same names as list', (t) => {
 	});
 });
 
+test('say with random cow selection', (t) => {
+	t.plan(2);
+
+	const result = cowsay.say({ text: 'Random', r: true, _: [] });
+	t.equal(typeof result, 'string');
+	t.ok(result.includes('Random'));
+});
+
+test('think with random cow selection', (t) => {
+	t.plan(2);
+
+	const result = cowsay.think({ text: 'Random', r: true, _: [] });
+	t.equal(typeof result, 'string');
+	t.ok(result.includes('Random'));
+});
+
+test('say respects wrap column', (t) => {
+	t.plan(1);
+
+	const longText = 'AAAA BBBB CCCC';
+	const result = cowsay.say({ text: longText, W: 5, _: [] });
+	// With W=5, "AAAA BBBB CCCC" should be wrapped into multiple lines
+	// which means the balloon will have multi-line delimiters
+	t.ok(result.includes('|'), 'wrapping produces multi-line balloon');
+});
+
+test('say with n option disables wrapping', (t) => {
+	t.plan(1);
+
+	const longText = 'AAAA BBBB CCCC';
+	const result = cowsay.say({ text: longText, n: true, W: 5, _: [] });
+	// With n: true, wrapping is disabled even with W=5
+	// Single line balloon uses < > delimiters
+	t.ok(result.includes('< AAAA BBBB CCCC >'), 'nowrap keeps text on single line');
+});
+
 test('all modes render thoughts correctly in say', (t) => {
 	const modeFlags = ['b', 'd', 'g', 'p', 's', 't', 'w', 'y'];
 	t.plan(modeFlags.length);

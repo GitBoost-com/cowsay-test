@@ -217,8 +217,10 @@ function doIt (options, sayAloud) {
   const face = faces(options);
   face.thoughts = sayAloud ? "\\" : "o";
 
-  const action = sayAloud ? "say" : "think";
-  return balloon[action](options.text || options._.join(" "), options.n ? null : options.W) + "\n" + replacer(cow, face);
+  const text = options.text || options._.join(" ");
+  const wrap = options.n ? null : options.W;
+  const balloonText = sayAloud ? balloon.say(text, wrap) : balloon.think(text, wrap);
+  return balloonText + "\n" + replacer(cow, face);
 }
 
 export function say(browserOptions) {

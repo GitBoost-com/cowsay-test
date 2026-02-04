@@ -49,6 +49,14 @@ test('cow names do not include .cow extension', (t) => {
 	t.notOk(hasExtension);
 });
 
+test('cow names contain only valid names (no path artifacts)', (t) => {
+	t.plan(1);
+
+	const names = cows.listSync();
+	const allValid = names.every((name) => name.length > 0 && !name.includes('/') && !name.includes('\\'));
+	t.ok(allValid, 'all cow names are clean basenames');
+});
+
 test('get accepts an absolute file path', (t) => {
 	t.plan(1);
 
