@@ -69,10 +69,10 @@ if (argv.l) {
 }
 
 function say() {
-  const module = require('./index');
+  const cowsay = require('./index');
   const think = /think$/.test(argv['$0']) || argv.think;
 
-  console.log(think ? module.think(argv) : module.say(argv));
+  console.log(think ? cowsay.think(argv) : cowsay.say(argv));
 }
 
 function listCows() {

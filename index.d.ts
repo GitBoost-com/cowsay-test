@@ -10,7 +10,7 @@
  * @property e : eyes
  * 
  * @Modes
- * @property b : borg 
+ * @property b : borg
  * @property d : dead
  * @property g : greedy
  * @property p : paranoia
