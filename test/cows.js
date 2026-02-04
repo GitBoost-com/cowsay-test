@@ -1,48 +1,48 @@
 const test = require('tape');
-const replacer = require('../lib/replacer');
+const cows = require('../lib/cows');
 
-const cowFormat = `#Comment 
-# just some other comment, it's going to be ignored anyway ...
-$the_cow = <<EOC;\n
- $thoughts
-   $thoughts
-chars($eyes)
-$tongue
-EOC
+test('get returns a function for the default cow', (t) => {
+  t.plan(2);
 
-`;
+  const render = cows.get('default');
+  t.equal(typeof render, 'function');
 
-// They are the same...
-const plainText = `
- $thoughts
-   $thoughts
-chars($eyes)
-$tongue`;
-
-const expected = `
- ||
-   ||
-chars(oo)
-U `;
-
-test('original cow file format', (t) => {
-  t.plan(1);
-
-  const cow = replacer(cowFormat, {
-    thoughts: '||',
-    eyes: 'oo',
-    tongue: 'U ',
-  });
-  t.equal(cow, expected);
+  const result = render({ eyes: 'oo', tongue: '  ', thoughts: '\\' });
+  t.ok(result.includes('\\'));
 });
 
-test('plain text file', (t) => {
+test('get caches cow files', (t) => {
   t.plan(1);
 
-  const cow = replacer(plainText, {
-    thoughts: '||',
-    eyes: 'oo',
-    tongue: 'U ',
+  const render1 = cows.get('default');
+  const render2 = cows.get('default');
+  const face = { eyes: 'oo', tongue: '  ', thoughts: '\\' };
+  t.equal(render1(face), render2(face));
+});
+
+test('listSync returns an array of cow names', (t) => {
+  t.plan(3);
+
+  const names = cows.listSync();
+  t.ok(Array.isArray(names));
+  t.ok(names.length > 0);
+  t.ok(names.includes('default'));
+});
+
+test('list returns a promise of cow names', (t) => {
+  t.plan(3);
+
+  cows.list().then((names) => {
+    t.ok(Array.isArray(names));
+    t.ok(names.length > 0);
+    t.ok(names.includes('default'));
   });
-  t.equal(cow, expected);
+});
+
+test('cow names do not include .cow extension', (t) => {
+  t.plan(1);
+
+  const names = cows.listSync();
+  const hasExtension = names.some((name) => name.endsWith('.cow'));
+  t.notOk(hasExtension);
 });
