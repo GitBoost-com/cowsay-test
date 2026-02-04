@@ -84,3 +84,46 @@ test('empty string', (t) => {
 	const result = balloon.say('');
 	t.equal(typeof result, 'string');
 });
+
+test('Windows line endings (CRLF) are normalized', (t) => {
+	t.plan(1);
+
+	const result = balloon.say('AB\r\nCDE');
+	t.equal(result, [
+		' _____',
+		'/ AB  \\',
+		'\\ CDE /',
+		' -----',
+	].join('\n'));
+});
+
+test('old Mac line endings (CR) are normalized', (t) => {
+	t.plan(1);
+
+	const result = balloon.say('AB\rCDE');
+	t.equal(result, [
+		' _____',
+		'/ AB  \\',
+		'\\ CDE /',
+		' -----',
+	].join('\n'));
+});
+
+test('BOM is stripped from input', (t) => {
+	t.plan(1);
+
+	const result = balloon.say('\uFEFFHi!');
+	t.equal(result, ' _____\n< Hi! >\n -----');
+});
+
+test('Unicode line separators are normalized', (t) => {
+	t.plan(1);
+
+	const result = balloon.say('AB\u2028CDE');
+	t.equal(result, [
+		' _____',
+		'/ AB  \\',
+		'\\ CDE /',
+		' -----',
+	].join('\n'));
+});

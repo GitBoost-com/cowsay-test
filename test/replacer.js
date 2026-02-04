@@ -104,3 +104,39 @@ test('extractTheCow handles backslash and at-sign escapes', (t) => {
 	});
 	t.equal(result, '\\escaped @at $dollar');
 });
+
+test('extractTheCow normalizes CRLF line endings', (t) => {
+	t.plan(1);
+
+	const cowFile = '$the_cow = <<"EOC";\r\n $thoughts\r\nEOC\r\n';
+	const result = replacer(cowFile, {
+		thoughts: '\\',
+		eyes: 'oo',
+		tongue: '  ',
+	});
+	t.equal(result, ' \\');
+});
+
+test('cow file with double-quoted EOC delimiter', (t) => {
+	t.plan(1);
+
+	const cowFile = '$the_cow = <<"EOC";\n $thoughts\nEOC\n';
+	const result = replacer(cowFile, {
+		thoughts: '\\',
+		eyes: 'oo',
+		tongue: '  ',
+	});
+	t.equal(result, ' \\');
+});
+
+test('multiple $thoughts replacements', (t) => {
+	t.plan(1);
+
+	const template = '$thoughts $thoughts $thoughts';
+	const result = replacer(template, {
+		thoughts: '\\',
+		eyes: 'oo',
+		tongue: '  ',
+	});
+	t.equal(result, '\\ \\ \\');
+});

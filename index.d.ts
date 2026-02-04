@@ -42,7 +42,7 @@ export interface IOptions {
     _?: string[], // remaining arguments (used internally by CLI)
 }
 
-type callback_type = (error: NodeJS.ErrnoException, cow_names: string[]) => void;
+type callback_type = (error: NodeJS.ErrnoException | null, cow_names: string[]) => void;
 
 /**
  * @param callback
